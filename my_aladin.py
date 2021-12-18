@@ -8,9 +8,9 @@ from bs4 import BeautifulSoup
 from config import Config
 
 # 텔레그램 토큰값
-bot = telegram.Bot(token=Config.telegram_tokens['bot_token'])
+bot = telegram.Bot(token=Config.telegram_tokens['my_bot_token'])
 error_bot = telegram.Bot(token=Config.telegram_tokens['error_bot_token'])
-chat_id = Config.telegram_tokens['chat_id']
+chat_id = Config.telegram_tokens['my_chat_id']
 
 # 세션, 헤더 초기화
 session = requests.session()
@@ -56,15 +56,18 @@ def update_catalog():
 
         # 책 정보를 추출하여 이전에 없었을 경우 텔레그렘 봇에게 전달
         items = soup.select("ul.b_list2")
+
         for index, item in enumerate(items):
             book_name = item.select_one("li:nth-of-type(1)").text
             book_writer = item.select_one("li:nth-of-type(2)").text
             publisher, book_date, _ = item.select_one("li:nth-of-type(3)").text.split(' | ')
             book_prices = item.select_one("li:nth-of-type(4)").text
             book_link = 'https://www.aladin.co.kr/shop/UsedShop/w' + item['onclick'][43:-2]
+
             if previous and book_name not in previous:
                 book_info = [book_name, book_writer, publisher, book_date, book_prices, book_link]
                 bot.sendMessage(chat_id=chat_id, text='\n'.join(book_info))
+
             presents.add(book_name)
 
     print(presents)
