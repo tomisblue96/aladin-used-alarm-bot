@@ -9,6 +9,6 @@ class Config:
     }
     telegram_tokens = {
         "bot_token": "",                  # 텔레그램 봇 토큰값
-        "my_something_bot_token": "",     # 텔레그램 봇 토큰값
+        "error_bot_token": "",     # 텔레그램 봇 토큰값
         "chat_id": 0                      # 텔레그램 봇 chat_id
     }

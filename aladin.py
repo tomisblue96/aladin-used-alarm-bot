@@ -9,7 +9,7 @@ from config import Config
 
 # 텔레그램 토큰값
 bot = telegram.Bot(token=Config.telegram_tokens['bot_token'])
-my_something_bot = telegram.Bot(token=Config.telegram_tokens['my_something_bot_token'])
+error_bot = telegram.Bot(token=Config.telegram_tokens['error_bot_token'])
 chat_id = Config.telegram_tokens['chat_id']
 
 # 세션, 헤더 초기화
@@ -78,7 +78,7 @@ def main():
             update_catalog()
         except:
             error = '[나의 알라딘 직배송]' + traceback.format_exc().splitlines()[-1]
-            my_something_bot.sendMessage(chat_id=chat_id, text=error)
+            error_bot.sendMessage(chat_id=chat_id, text=error)
         time.sleep(10)
 
 
